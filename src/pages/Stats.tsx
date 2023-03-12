@@ -1,20 +1,12 @@
 import React from "react";
-import {
-  ClientTime,
-  PrometheusMetrics,
-  RequestEpochTime,
-  TimeDifference,
-} from "../components";
+import { PrometheusMetrics } from "../components";
+import TimeStats from "../containers/TimeStats";
 
 const Stats = () => {
   return (
     <main>
-      <section>
-        <ClientTime />
-        <PrometheusMetrics />
-        <RequestEpochTime />
-        <TimeDifference />
-      </section>
+      <TimeStats />
+      <PrometheusMetrics />
     </main>
   );
 };

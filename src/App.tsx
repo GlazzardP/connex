@@ -3,10 +3,14 @@ import Stats from "./pages/Stats";
 function App() {
   return (
     <>
-      <header>{/* <img src={connexLogo} alt="Connex One" /> */}</header>
-      <Stats />
+      <header>
+        <h1>Connex One</h1>
+      </header>
+      <main>
+        <Stats />
+      </main>
       <footer>
-        <h2>Conex One Tech Test - Paul Glazzard</h2>
+        <h2>Tech Test - Paul Glazzard</h2>
       </footer>
     </>
   );

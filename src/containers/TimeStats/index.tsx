@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import ClientTime from "../../components/ClientTime";
 import RequestEpochTime from "../../components/RequestEpochTime";
 import TimeDifference from "../../components/TimeDifference";
-import { useGetApi } from "../../global/hooks/useGetApi";
-import axios from "axios";
+import { getServerTime } from "../../global/apis";
+import { TimesWrapper } from "./styles";
 
 const timePayload = {
   properties: {
@@ -18,52 +17,47 @@ const timePayload = {
 };
 
 const TimeStats = () => {
-  const [data, setData] = useState<any>();
-  // const { data, error, isLoading } = useGetApi("time", timePayload);
+  const [localTime, setLocalTime] = useState<number>(0);
+  const [serverTime, setServerTime] = useState<number>(0);
+  const [timeDifference, setTimeDifference] = useState<number>(0);
+
+  const getLocalTime = () => {
+    const secondsSinceEpoch = Math.round(Date.now() / 1000);
+    console.log({ secondsSinceEpoch });
+
+    setLocalTime(secondsSinceEpoch);
+  };
 
   useEffect(() => {
-    const func = async () => {
-      var data = JSON.stringify({
-        properties: {
-          epoch: {
-            description:
-              "The current server time, in epoch seconds, at time of processing the request.",
-            type: "number",
-          },
-        },
-        required: ["epoch"],
-        type: "object",
-      });
-
-      var config = {
-        method: "get",
-        url: "http://localhost:3001/time",
-        headers: {
-          Authorization: "mysecrettoken",
-          abc: "def",
-          "Content-Type": "application/json",
-        },
-        data: data,
-      };
-
-      await axios(config)
-        .then((response: any) => {
-          console.log(JSON.stringify(response.data));
-          setData(response.data);
-        })
-        .catch((error: any) => {
-          console.log(error);
-        })
-        .finally(() => console.log("D"));
-    };
-    func();
+    getLocalTime();
+    setInterval(() => getLocalTime(), 1000);
   }, []);
+
+  useEffect(() => {
+    getServerTime().then((res: any) => setServerTime(res?.data?.time));
+    setInterval(
+      () => getServerTime().then((res: any) => setServerTime(res?.data?.time)),
+      30000
+    );
+  }, []);
+
+  const calculateTimeDifference = () => {
+    let fetchedTime = new Date(serverTime);
+    let machineTime = new Date(localTime);
+
+    let seconds = Math.abs(fetchedTime.getTime() - machineTime.getTime());
+
+    setTimeDifference(seconds);
+  };
+
+  useEffect(() => {
+    calculateTimeDifference();
+  }, [localTime]);
   return (
-    <aside>
-      <ClientTime />
-      <RequestEpochTime fetchedTime={(data as any)?.time} />
-      <TimeDifference fetchedTime={(data as any)?.time} />
-    </aside>
+    <TimesWrapper>
+      <RequestEpochTime serverTime={serverTime} />
+      <TimeDifference timeDifference={timeDifference} />
+    </TimesWrapper>
   );
 };
 

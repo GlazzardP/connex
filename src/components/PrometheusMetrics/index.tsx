@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import { useGetApi } from "../../global/hooks/useGetApi";
+import { getPrometheusMetrics } from "../../global/apis";
+import { PrometheusWrapper } from "./styles";
 
 const PrometheusMetrics = () => {
-  // const { data, error, isLoading } = useGetApi("http://localhost:3001/metrics");
+  const [metrics, setMetrics] = useState();
+  useEffect(() => {
+    getPrometheusMetrics().then((res) => {
+      setMetrics(res?.data?.metrics);
+    });
+  });
 
   return (
-    <div>
-      {/* {data ? (
-        <pre>{(data as any)?.metrics}</pre>
-      ) : error ? (
-        <p>Error</p>
-      ) : (
-        <p>Loading</p>
-      )} */}
-    </div>
+    <PrometheusWrapper>
+      <pre>{metrics}</pre>
+    </PrometheusWrapper>
   );
 };
 

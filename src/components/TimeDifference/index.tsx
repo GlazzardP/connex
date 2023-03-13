@@ -1,42 +1,24 @@
-import { useEffect, useState } from "react";
-
 export interface iTimeDifference {
-  fetchedTime: number;
+  timeDifference: number;
 }
 
-const TimeDifference = ({ fetchedTime }: iTimeDifference) => {
-  const [difference, setDifference] = useState<any>();
-  const [time, setTime] = useState("");
-  const getTime = () => {
-    var d = new Date().toLocaleTimeString();
-    setTime(d);
-  };
+const TimeDifference = ({ timeDifference }: iTimeDifference) => {
+  function numToTime(num: any) {
+    var hours = Math.floor(num / 60);
+    var minutes: any = num % 60;
+    if (minutes + "".length < 2) {
+      minutes = "0" + minutes;
+    }
+    return hours + ":" + minutes;
+  }
 
-  useEffect(() => {
-    setInterval(getTime, 1000);
-  }, []);
-
-  useEffect(() => {
-    const now = Date.now(); // Unix timestamp in milliseconds
-
-    var utcSeconds = 1234567890;
-    var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-
-    const x = (fetchedTime - now) / 1000;
-
-    var utcSeconds = 1234567890;
-    var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-    d.setUTCSeconds(utcSeconds);
-    d.setUTCSeconds(x);
-
-    setDifference(x);
-  }, [fetchedTime]);
+  const formattedTime = numToTime(timeDifference);
 
   return (
-    <div>
-      <label htmlFor="">Diference Time:</label>
-      <label htmlFor="">{difference}</label>
-    </div>
+    <>
+      <label>Difference:</label>
+      <p>00:0{formattedTime}</p>
+    </>
   );
 };
 export default TimeDifference;

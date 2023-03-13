@@ -1,13 +1,17 @@
 import { useState } from "react";
-import { useGetApi } from "../../global/hooks/useGetApi";
+
 import { iTimeDifference } from "../TimeDifference";
 
-const EpochTime = ({ fetchedTime }: iTimeDifference) => {
+export interface iEpochTime {
+  serverTime: any;
+}
+
+const EpochTime = ({ serverTime }: iEpochTime) => {
   return (
-    <div>
-      <label htmlFor="">Fetched Time:</label>
-      <p>{fetchedTime}</p>
-    </div>
+    <>
+      <label>Fetched Time (Epoch Seconds):</label>
+      <p>{serverTime}</p>
+    </>
   );
 };
 

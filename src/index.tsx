@@ -7,7 +7,7 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  // <React.StrictMode>
+  // <React.StrictMode> // To prevent secondary calls locally as not production
   <App />
   // </React.StrictMode>
 );

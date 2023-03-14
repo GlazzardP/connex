@@ -23,8 +23,6 @@ const TimeStats = () => {
 
   const getLocalTime = () => {
     const secondsSinceEpoch = Math.round(Date.now() / 1000);
-    console.log({ secondsSinceEpoch });
-
     setLocalTime(secondsSinceEpoch);
   };
 
@@ -55,8 +53,17 @@ const TimeStats = () => {
   }, [localTime]);
   return (
     <TimesWrapper>
-      <RequestEpochTime serverTime={serverTime} />
-      <TimeDifference timeDifference={timeDifference} />
+      {serverTime ? (
+        <RequestEpochTime serverTime={serverTime} />
+      ) : (
+        <p>Loading</p>
+      )}
+
+      {timeDifference ? (
+        <TimeDifference timeDifference={timeDifference} />
+      ) : (
+        <p>Loading</p>
+      )}
     </TimesWrapper>
   );
 };

@@ -742,7 +742,7 @@ export const getInteractionsResponseMock = (
       undefined,
     ]),
     created_at: faker.helpers.arrayElement([
-      faker.date.past().toISOString().split('T')[0],
+      `${faker.date.past().toISOString().split('.')[0]}Z`,
       undefined,
     ]),
   })),

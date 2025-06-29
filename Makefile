@@ -20,3 +20,8 @@ serve-webapp:
 
 serve:
 	npx nx run-many -t serve
+
+test-webapp:
+	cd apps/webapp && npx jest
+
+

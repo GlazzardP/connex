@@ -9,7 +9,8 @@ export const Agent = sequelize.define(
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(255),
+      allowNull: false,
     },
   },
   {

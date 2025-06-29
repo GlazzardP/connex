@@ -1,34 +1,41 @@
-import {
-  Box,
-  Grid,
-  Typography,
-} from '@mui/material';
-import { Weather } from './weather/Weather';
-import { ContactsList } from './contacts/ContactsList';
+import { Box, Grid, Typography } from '@mui/material';
+import { Weather } from './Weather';
+import { ContactsList } from './Contacts';
+import AgentInteractionsTable from './AgentInteractionsTable';
 
 export default function Dashboard() {
   return (
-    <Box sx={{ width: '100%' }}>
-      <Typography component="h2" variant="h4" sx={{ mb: 2 }}>
+    <Box
+      sx={{
+        width: '100%',
+        height: { xs: 'auto', lg: '100vh' },
+        overflow: { xs: 'visible', lg: 'hidden' },
+      }}
+    >
+      <Typography
+        component="h1"
+        variant="h4"
+        gutterBottom
+        sx={{
+          mb: 2,
+          fontWeight: 'bold',
+          fontSize: { xs: '1.5rem', md: '2rem' },
+        }}
+      >
         Connex Dashboard
       </Typography>
-      <Weather />
-      <Grid
-        container
-        spacing={2}
-        columns={12}
-        sx={{ mb: (theme) => theme.spacing(2) }}
-      >
-        <Grid
-          size={{
-            xs: 12,
-            md: 4,
-            lg: 2,
-          }}
-        >
+      <Grid container spacing={2}>
+        <Grid size={12}>
+          <Weather />
+        </Grid>
+
+        <Grid size={{ xs: 12, md: 4 }}>
           <ContactsList />
         </Grid>
-        {/* Datatable */}
+
+        <Grid size={{ xs: 12, md: 8 }}>
+          <AgentInteractionsTable />
+        </Grid>
       </Grid>
     </Box>
   );

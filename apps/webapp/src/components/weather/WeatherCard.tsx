@@ -1,15 +1,20 @@
 import { Card, Stack, Typography } from '@mui/material';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 
-interface Props {
+interface WeatherCardProps {
   location: string;
-  temp: number;
+  temp: string;
 }
 
-export const WeatherCard = ({ location, temp }: Props) => {
+export const WeatherCard = ({ location, temp }: WeatherCardProps) => {
   return (
     <Card>
-      <Typography component="h2" variant="subtitle1" gutterBottom>
+      <Typography
+        component="h2"
+        variant="subtitle1"
+        gutterBottom
+        style={{ textTransform: 'capitalize' }}
+      >
         {location}
       </Typography>
       <Stack

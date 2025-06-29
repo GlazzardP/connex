@@ -3,8 +3,7 @@ import { Operation } from 'express-openapi';
 import { Interaction } from '../util/models/Interaction';
 
 export const GET: Operation = async (req: Request, res: Response) => {
-  const interactions = await Interaction.findAll();
-
+  const interactions = await Interaction.findAll({ raw: true });
   return res.send({ data: interactions });
 };
 
@@ -35,7 +34,7 @@ GET.apiDoc = {
                     },
                     created_at: {
                       type: 'string',
-                      format: 'date',
+                      format: 'date-time',
                     },
                   },
                   type: 'object',

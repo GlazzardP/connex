@@ -18,10 +18,11 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.get('/', (req, res) => {
   res.send({ message: 'Welcome to Connex Tech Test API' });
 });
+// const PORT = import.meta.env.VITE_API_BASE_URL
 
 expressOpenApi(app);
 
-const port = process.env.PORT || 3333;
+const port = 3333;
 const server = app.listen(port, async () => {
   try {
     await sequelize.authenticate();
